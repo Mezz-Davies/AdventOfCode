@@ -13,13 +13,14 @@ class IntCodeComputer:
     def __init__(self, stringProgram=''):
         self.reset(stringProgram)
 
-    def reset(self, stringProgram=''):
+    def reset(self, stringProgram='', resetMemory=True):
         self.program = list(map(castToInt,stringProgram.split(','))) if stringProgram != '' else []
         self.position = 0
         self.complete = False
         self.waiting = False
         self.inputs = []
         self.outputs = []
+        self.memory = dict()
 
     def getParameterValue(self, parameterLoc, parameterMode):
         if(parameterMode == 0): # Position
