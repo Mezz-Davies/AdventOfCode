@@ -20,17 +20,27 @@ class IntCodeComputer:
         self.waiting = False
         self.inputs = []
         self.outputs = []
+		self.relativeBase = 0
         self.memory = dict()
 
     def getParameterValue(self, parameterLoc, parameterMode):
         if(parameterMode == 0): # Position
             parameterValueLocation = self.program[parameterLoc]
+			if(parameterValueLocation > len(self.program))
             return self.program[parameterValueLocation]
         elif(parameterMode == 1): # Immediate
             return self.program[parameterLoc]
-
+		elif(parameterMode == 2): # Relative
+			return self.relativeBase + self.program[parameterLoc]
+	
+	def getValFromLoc(self, loc):
+		
+	
     def setParameterValue(self, parameterLoc, parameterValue):
         self.program[parameterLoc] = parameterValue
+		if(parameterLoc > len(self.program)):
+			memoryKey = str(parameterLoc - len(self.program))
+			memoryKey[parameterLoc] = parameterValue
 
     def step(self):
         startPosition = self.position
@@ -96,6 +106,9 @@ class IntCodeComputer:
             else:
                 self.setParameterValue(writeDestination, 0)
             nextPosition += 4
+		elif(instruction == 9): # Adjust Relative Base
+			param1 = self.getParameterValue(startPosition+1, parameter1mode)
+			self.relativeBase += param1 
         elif(instruction == 99):
             self.complete = True
         else:
