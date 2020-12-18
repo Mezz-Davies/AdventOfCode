@@ -54,8 +54,7 @@ class Path {
 		return intersections;
 	}
 	getStepsToPoint = (point) => {
-		console.log(point.toCart());
-		return this.segments.reduce(([totalSteps, hasPassed], segment)=>{
+		return this.segments.reduce(([hasPassed, totalSteps], segment)=>{
 			if( !hasPassed ){
 				if( segment.containsPoint(point) ){
 					const tmpSegment = new PathSegment(segment.start, point);
