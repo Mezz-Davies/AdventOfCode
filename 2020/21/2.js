@@ -37,6 +37,7 @@ function solution(data){
 		)
 		allergensToAllocate.shift();
 	}
+	console.log(finalAllergenList);
 	return Object.keys(finalAllergenList).sort().map(item=>finalAllergenList[item]).join(',');
 }
 function readFile(filename){
