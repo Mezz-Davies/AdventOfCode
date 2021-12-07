@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const common = require('../../common/common');
 
 const ExampleResult = solution(prepareInput(readFile('example_input.txt')));
 console.log(`Example : ${ExampleResult}`);
