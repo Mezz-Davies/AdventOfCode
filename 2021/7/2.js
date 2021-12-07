@@ -9,12 +9,7 @@ console.log(`Solution : ${SolutionResult}`);
 
 function getCostOfMove(target, n){
 	const dist = Math.abs(target - n);
-	let sum = 0;
-	for( let i=1; i<=dist; i++){
-		sum += i;
-	}
-	//console.log(`Cost of moving from ${n} to ${target} is ${sum}`);
-	return sum;
+	return (dist/2) * (dist + 1);
 }
 
 function solution(data){
