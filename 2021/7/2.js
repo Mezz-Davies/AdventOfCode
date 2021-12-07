@@ -19,9 +19,7 @@ function solution(data){
 		uniqueVals.push(i);
 	}
 	const sumDistancesToVals = uniqueVals.map(targetVal => {
-		//console.log(`Computing for target ${targetVal}`);
 		const cost = data.reduce((sum, val) => sum + getCostOfMove(targetVal, val), 0);
-		//console.log(cost);
 		return cost;
 	});
 
