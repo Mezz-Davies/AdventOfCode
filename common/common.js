@@ -11,7 +11,16 @@ const sum = arrayToSum => {
  */
 const gauss = (end, start = 1) => ( (end - start) / 2 ) * (start + end) 
 
+const diff = (arr1, arr2) => arr1.filter(val => !arr2.includes(val))
+
+const intersect = (arr1, arr2) => arr1.filter(val => arr2.includes(val))
+
+const sortString = stringToSort => stringToSort.split('').sort().join('')
+
 module.exports = {
     sum,
-    gauss
+    gauss,
+    diff,
+    intersect,
+    sortString
 }
