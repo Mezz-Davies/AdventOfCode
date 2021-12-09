@@ -2,10 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const common = require('../../common/common');
 
-const ExampleResult = readPrepareAndSolve('example_input.txt');
-console.log(`Example : ${ExampleResult}`);
-const SolutionResult = readPrepareAndSolve('input.txt');
-console.log(`Solution : ${SolutionResult}`);
+const [ exampleResult, exampleRuntime ] = readPrepareAndSolve('example_input.txt');
+console.log(`Example : ${exampleResult}. Runtime : ${exampleRuntime}ms`);
+
+const [ solutionResult, solutionRuntime ] = readPrepareAndSolve('input.txt');
+console.log(`Solution : ${solutionResult}. Runtime : ${solutionRuntime}ms`);
 
 function solution(data){
 	return data;
@@ -18,7 +19,9 @@ function readFile(filename){
 }
 function readPrepareAndSolve(filename){
 	const fileData = readFile(filename);
+	const startTime = Date.now();
 	const inputData = prepareInput(fileData);
 	const result = solution(inputData);
-	return result;
+	const runtime = Date.now() - startTime;
+	return [result, runtime];
 }
