@@ -33,11 +33,11 @@ class Point {
 	}
 }
 
-const ExampleResult = readPrepareAndSolve('example_input.txt');
-console.log(`Example : ${ExampleResult}`);
+const [ exampleResult, exampleRuntime ] = readPrepareAndSolve('example_input.txt');
+console.log(`Example : ${exampleResult}. Runtime : ${exampleRuntime}ms`);
 
-const SolutionResult = readPrepareAndSolve('input.txt');
-console.log(`Solution : ${SolutionResult}`);
+const [ solutionResult, solutionRuntime ] = readPrepareAndSolve('input.txt');
+console.log(`Solution : ${solutionResult}. Runtime : ${solutionRuntime}ms`);
 
 function getPointsArrayAndLookup(mapInput){
 	const pointsLookup = {};
@@ -55,7 +55,6 @@ function getPointsArrayAndLookup(mapInput){
 function getLowpoints(pointsArray, pointsLookup){
 	return pointsArray.reduce((lowPoints, point) => {
 		const surroundingPoints = point.getAdjacentPoints();
-		//console.log({point, surroundingPoints})
 		const isLowPoint = surroundingPoints.every(surround => {
 			if(pointsLookup[surround.key] !== undefined ){
 				return point.z < pointsLookup[surround.key].z
@@ -96,7 +95,6 @@ function solution(data){
 	const {pointsArray, pointsLookup} = getPointsArrayAndLookup(data)
 	const lowPoints = getLowpoints(pointsArray, pointsLookup);
 	const basinSizes = lowPoints.map(lowPoint=>getBasinSize(lowPoint, pointsLookup));
-	console.log(basinSizes);
 	basinSizes.sort((a, b)=>b-a) // sort largest -> smallest
 	const productOfThreeLargestBasinSizes = basinSizes[0] * basinSizes[1] * basinSizes[2]
 	return productOfThreeLargestBasinSizes;
@@ -109,7 +107,9 @@ function readFile(filename){
 }
 function readPrepareAndSolve(filename){
 	const fileData = readFile(filename);
+	const startTime = Date.now();
 	const inputData = prepareInput(fileData);
 	const result = solution(inputData);
-	return result;
+	const runtime = Date.now() - startTime;
+	return [result, runtime];
 }
