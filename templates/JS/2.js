@@ -3,10 +3,10 @@ const path = require('path');
 const common = require('../../common/common');
 
 const [ exampleResult, exampleRuntime ] = readPrepareAndSolve('example_input.txt');
-console.log(`Example : ${exampleResult}. Runtime : ${exampleRuntime}ms`);
+console.log(`Example : ${exampleResult} Runtime : ${exampleRuntime}ms`);
 
 const [ solutionResult, solutionRuntime ] = readPrepareAndSolve('input.txt');
-console.log(`Solution : ${solutionResult}. Runtime : ${solutionRuntime}ms`);
+console.log(`Solution : ${solutionResult} Runtime : ${solutionRuntime}ms`);
 
 function solution(data){
 	return data;
