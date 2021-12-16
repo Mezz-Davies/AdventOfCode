@@ -30,7 +30,7 @@ console.log(`Solution : ${solutionResult} Runtime : ${solutionRuntime}ms`);
 function getCheapestUnvisitedNode(nonInfiniteNodesSet, pointsLookup){
 	let minDistance = Number.POSITIVE_INFINITY;
 	let keyOfMinDistance = '';
-	[...nonInfiniteNodesSet].filter(key=>!pointsLookup[key].visited).forEach(key=>{
+	[...nonInfiniteNodesSet].forEach(key=>{
 		const thisNode = pointsLookup[key];
 		if( thisNode.distance < minDistance){
 			minDistance = thisNode.distance;
@@ -40,14 +40,14 @@ function getCheapestUnvisitedNode(nonInfiniteNodesSet, pointsLookup){
 	return keyOfMinDistance
 }
 function getAllUnvisitedNeighbours(currentNodeKey, pointsLookup){
-	return pointsLookup[currentNodeKey].getAdjacentPoints().filter(key=>pointsLookup[key] !== undefined && !pointsLookup[key].visited)
+	return pointsLookup[currentNodeKey].getAdjacentPoints().filter(key=>pointsLookup[key] !== undefined && !pointsLookup[key].visited);
 }
 function dijkstraSolve(pointsLookup){
-	pointsLookup['(0,0)'].distance = 0; // set starting node to 0;
+	// setup starting node
+	pointsLookup['(0,0)'].distance = 0;
 	const nonInfiniteDistanceNodes = new Set(['(0,0)']);
 	let currentNodeKey = getCheapestUnvisitedNode(nonInfiniteDistanceNodes, pointsLookup)
 	while(currentNodeKey !== ''){
-		//console.log(`Processing node ${currentNodeKey}`);
 		const currentNode = pointsLookup[currentNodeKey];
 		const unvisitedNeighbours = getAllUnvisitedNeighbours(currentNodeKey, pointsLookup);
 		unvisitedNeighbours.forEach(neighbourKey=>{
@@ -58,7 +58,7 @@ function dijkstraSolve(pointsLookup){
 			}
 		})
 		currentNode.visited = true;
-		nonInfiniteDistanceNodes.delete(currentNodeKey);
+		nonInfiniteDistanceNodes.delete(currentNodeKey); // Remove processed node from search space for next node to process.
 		currentNodeKey = getCheapestUnvisitedNode(nonInfiniteDistanceNodes, pointsLookup);
 	}
 	return pointsLookup
@@ -70,6 +70,7 @@ function solution(data){
 	const maxX = maxY; // Grid is square.
 	data.forEach((row, y)=>{
 		row.forEach((risk, x) => {
+			// Turn into a 5x5 tiled map
 			for(let i=0;i<5;i++){
 				for(let j=0;j<5;j++){
 					const pointRisk = (risk + i + j) > 9 ? (risk + i + j) % 9 : (risk + i + j);
@@ -81,7 +82,6 @@ function solution(data){
 	}, {});
 	const solvedPointsLookup = dijkstraSolve(pointsLookup);
 	const endPoint = solvedPointsLookup[`(${(maxX*5)-1},${(maxY*5)-1})`];
-	console.log(endPoint);
 	return endPoint.distance;
 }
 function prepareInput(inputData){
