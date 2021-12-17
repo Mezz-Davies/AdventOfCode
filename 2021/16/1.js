@@ -2,6 +2,15 @@ const fs = require('fs');
 const path = require('path');
 const common = require('../../common/common');
 
+class Bincode{
+	constructor(packet){
+		this.version
+		this.type
+		this.subpackets
+		this.value
+	}
+}
+
 const [ exampleResult, exampleRuntime ] = readPrepareAndSolve('example_input.txt');
 console.log(`Example : ${exampleResult} Runtime : ${exampleRuntime}ms`);
 
